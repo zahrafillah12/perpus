@@ -1,0 +1,50 @@
+datasource db {
+  provider = "mysql"
+  url =env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Book {
+  id        Int      @id @default(autoincrement())
+  title     String
+  author    String
+  year      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Members {
+  id        Int      @id @default(autoincrement())
+  name      String
+  className String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User[]
+}
+
+enum UserRole {
+  ADMIN
+  PETUGAS
+  MEMBER
+}
+
+model User {
+id Int @id @default(autoincrement())
+username String @unique
+password String
+role UserRole
+membersId Int?
+members Members? @relation(fields: [membersId], references: [id])
+createdAt DateTime @default(now())
+}
+
+model Peminjaman {
+  id              Int      @id @default(autoincrement())
+  namaPeminjam    String
+  judulBuku       String
+  tanggalPinjam   DateTime
+  tanggalKembali  DateTime
+}
