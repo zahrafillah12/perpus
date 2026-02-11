@@ -42,9 +42,18 @@ createdAt DateTime @default(now())
 }
 
 model Peminjaman {
-  id              Int      @id @default(autoincrement())
-  namaPeminjam    String
-  judulBuku       String
-  tanggalPinjam   DateTime
-  tanggalKembali  DateTime
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  bookId      Int
+  tanggalPinjam DateTime @default(now())
+  tanggalKembali DateTime?
+  status      StatusPeminjaman
+
+  user User @relation(fields: [userId], references: [id])
+  book Book @relation(fields: [bookId], references: [id])
+
+}
+enum StatusPeminjaman {
+  DIPINJAM
+  DIKEMBALIKAN
 }

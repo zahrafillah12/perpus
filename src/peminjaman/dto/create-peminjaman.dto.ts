@@ -1,19 +1,14 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsInt, Min } from 'class-validator';
 
 export class CreatePeminjamanDto {
-  @IsString()
-  @IsNotEmpty()
-  namaPeminjam: string;
+  @IsInt()
+  @Min(1)
+  userId: number;
 
-  @IsString()
-  @IsNotEmpty()
-  judulBuku: string;
+  @IsInt()
+  @Min(1)
+  bookId: number;
 
-  @IsString()
-  @IsNotEmpty()
-  tanggalPinjam: string;
-
-  @IsString()
-  @IsNotEmpty()
-  tanggalKembali: string;
+  @IsEnum(['DIPINJAM', 'DIKEMBALIKAN'])
+  status: 'DIPINJAM' | 'DIKEMBALIKAN';
 }

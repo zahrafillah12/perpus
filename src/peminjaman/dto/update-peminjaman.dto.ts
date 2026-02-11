@@ -1,18 +1,10 @@
-import { IsOptional, IsString } from 'class-validator';
-export class UpdatepeminjamanDto {
-    @IsString()
-    @IsOptional()
-    amaPeminjam?: string;
-    
-    @IsString()
-    @IsOptional()
-    judulBuku?: string;
+import { IsEnum, IsOptional, IsDateString } from 'class-validator';
 
-    @IsString()
-    @IsOptional()
-    tanggalPinjam?: string;
+export class UpdatePeminjamanDto {
+  @IsEnum(['DIPINJAM', 'DIKEMBALIKAN'])
+  status: 'DIPINJAM' | 'DIKEMBALIKAN';
 
-    @IsString()
-    @IsOptional()
-   tanggalKembali?: string;
+  @IsOptional()
+  @IsDateString()
+  tanggalKembali?: string;
 }
